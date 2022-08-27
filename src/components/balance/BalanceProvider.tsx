@@ -23,25 +23,21 @@ function BalanceProvider({
     }
   }, [options, balanceUpdateDelay])
 
-  const BalanceComponent = useMemo(() => {
-    if (!name) {
-      return null
-    }
+  if (!name) {
+    return null
+  }
 
-    const balanceProviderMetadata = BALANCE_PROVIDER_BY_NAME[name]
+  const balanceProviderMetadata = BALANCE_PROVIDER_BY_NAME[name]
 
-    if (!balanceProviderMetadata) {
-      return null
-    }
+  if (!balanceProviderMetadata) {
+    return null
+  }
 
-    const { component, validatePropsFunc } = balanceProviderMetadata
+  const { component: BalanceComponent, validatePropsFunc } = balanceProviderMetadata
 
-    if (!validatePropsFunc(options)) {
-      return null
-    }
-
-    return component
-  }, [name])
+  if (!validatePropsFunc(options)) {
+    return null
+  }
 
   if (!BalanceComponent || !address || !isConnected) {
     return null
